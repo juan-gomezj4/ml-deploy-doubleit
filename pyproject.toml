@@ -1,0 +1,49 @@
+[project]
+name = "ml-deploy-doubleit"
+version = "0.1.0"
+description = "A small project to deploy a TorchScript model that multiplies numbers by 2. It includes a REST API using FastAPI and a simple Streamlit interface."
+authors = [
+    { name = "Juan Gómez", email = "jgomezja@unal.edu.co" },
+]
+requires-python = ">=3.11"
+readme = "README.md"
+
+dependencies = [
+    "torch>=2.0.0",
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "streamlit>=1.33.0",
+    "pydantic>=2.6.0",
+    "loguru>=0.7.3"
+]
+
+[project.urls]
+repository = "https://github.com/juan-gomezj4/ml-deploy-doubleit"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "pytest-cookies>=0.7.0",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.10"
+]
+
+[tool.uv]
+package = false
+default-groups = ["dev"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.coverage.paths]
+source = ["src/"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["**/__init__.py"]

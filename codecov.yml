@@ -1,0 +1,20 @@
+codecov:
+  require_ci_to_pass: true
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%         # cobertura mínima deseada
+        threshold: 5%       # tolerancia de caída
+    patch:
+      default:
+        target: 70%
+
+ignore:
+  - "tests/"
+  - "**/__init__.py"
+
+comment:
+  layout: "diff"
+  behavior: default

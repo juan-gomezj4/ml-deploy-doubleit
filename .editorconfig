@@ -1,0 +1,27 @@
+# https://editorconfig.org
+root = true
+
+# Reglas generales para todos los archivos
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Archivos TOML (e.g., pyproject.toml, ruff.toml)
+[*.toml]
+max_line_length = 100
+
+# Archivos Markdown: no recortar espacios al final
+[*.md]
+trim_trailing_whitespace = false
+
+# Makefile requiere tabs, no espacios
+[Makefile]
+indent_style = tab
+
+# Archivos de configuración y datos (2 espacios por convención)
+[*.{yaml,yml,json,manifest}]
+indent_size = 2

@@ -1,0 +1,41 @@
+# https://pre-commit.com
+
+repos:
+  # Reglas generales de seguridad y limpieza
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml                       # Valida sintaxis YAML
+      - id: check-case-conflict             # Detecta conflictos de mayúsculas/minúsculas en archivos
+      - id: debug-statements                # Elimina prints y debuggers
+      - id: detect-private-key              # Previene commits con claves privadas
+      - id: check-merge-conflict            # Evita conflictos sin resolver
+      - id: check-added-large-files         # Previene archivos muy grandes (hasta 100MB)
+        args: [--maxkb=100000]
+
+  # Detección de secretos con exclusión de archivos grandes o binarios
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        exclude: ^(poetry\.lock|.*\.ipynb)$
+
+  # Linter y formateador con Ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.10
+    hooks:
+      - id: ruff
+        args:
+          - --fix
+          - --config=.code_quality/ruff.toml
+      - id: ruff-format
+        args:
+          - --config=.code_quality/ruff.toml
+
+  # Verificación de tipos con MyPy
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.15.0
+    hooks:
+      - id: mypy
+        args:
+          - --config-file=.code_quality/mypy.ini
