@@ -14,7 +14,8 @@ dependencies = [
     "uvicorn[standard]>=0.29.0",
     "streamlit>=1.33.0",
     "pydantic>=2.6.0",
-    "loguru>=0.7.3"
+    "loguru>=0.7.3",
+    "requests>=2.32.4",
 ]
 
 [project.urls]
@@ -22,11 +23,13 @@ repository = "https://github.com/juan-gomezj4/ml-deploy-doubleit"
 
 [dependency-groups]
 dev = [
+    "mypy>=1.16.0",
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
     "pytest-cookies>=0.7.0",
     "pytest-cov>=6.1.1",
-    "ruff>=0.11.10"
+    "ruff>=0.11.10",
+    "types-requests>=2.32.0.20250602",
 ]
 
 [tool.uv]
