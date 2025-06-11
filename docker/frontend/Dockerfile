@@ -14,8 +14,7 @@ COPY src ./src
 COPY models ./models
 
 # Exponer el puerto por defecto de Streamlit
-EXPOSE 8501
+EXPOSE 8080
 
-# Ejecutar el frontend
-CMD ["uv", "run", "streamlit", "run", "src/frontend/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
-
+# Ejecutar Streamlit usando el puerto de entorno
+CMD ["uv", "run", "streamlit", "run", "src/frontend/app.py", "--server.port=8080", "--server.address=0.0.0.0"]
