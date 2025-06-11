@@ -1,6 +1,10 @@
+import os
+
 import requests
 import streamlit as st
 from loguru import logger
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000/predict")
 
 
 def procesar_entrada(entrada: str) -> list[int]:
@@ -58,8 +62,7 @@ if st.button("🔮 Predicción"):
 
         # Llamada al backend
         response = requests.post(
-            # "http://localhost:8000/predict",
-            "http://backend:8000/predict",
+            BACKEND_URL,
             json={"values": values},  # Usa "values" si el backend espera este campo
             timeout=5,
         )
