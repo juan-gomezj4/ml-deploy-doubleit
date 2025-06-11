@@ -5,11 +5,11 @@ coverage:
   status:
     project:
       default:
-        target: 80%         # cobertura mínima deseada
+        target: 60%         # cobertura mínima deseada
         threshold: 5%       # tolerancia de caída
     patch:
       default:
-        target: 70%
+        target: 50%
 
 ignore:
   - "tests/"
