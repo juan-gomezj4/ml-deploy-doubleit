@@ -5,7 +5,7 @@ services:
       dockerfile: docker/backend/Dockerfile
     container_name: doubleit-backend
     ports:
-      - "8000:8000"
+      - "8000:8080"
     restart: unless-stopped
 
   frontend:
@@ -14,7 +14,7 @@ services:
       dockerfile: docker/frontend/Dockerfile
     container_name: doubleit-frontend
     ports:
-      - "8501:8501"
+      - "8501:8080"
     restart: unless-stopped
     depends_on:
       - backend

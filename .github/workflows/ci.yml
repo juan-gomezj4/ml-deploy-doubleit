@@ -82,6 +82,7 @@ jobs:
             --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
+            --memory=1Gi \
             --allow-unauthenticated
 
       - name: Deploy frontend to Cloud Run
@@ -90,5 +91,6 @@ jobs:
             --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
+            --memory=1Gi \
             --allow-unauthenticated
 
