@@ -64,22 +64,22 @@ jobs:
 
       - name: Configure Docker for Artifact Registry
         run: |
-          gcloud auth configure-docker ${GCP_REGION}-docker.pkg.dev
+          gcloud auth configure-docker "${{ secrets.GCP_REGION }}-docker.pkg.dev"
 
       - name: Build and push backend image
         run: |
-          docker build -f docker/backend/Dockerfile -t ${GCP_REGION}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest .
-          docker push ${GCP_REGION}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest
+          docker build --platform linux/amd64 -f docker/backend/Dockerfile -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest .
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest
 
       - name: Build and push frontend image
         run: |
-          docker build -f docker/frontend/Dockerfile -t ${GCP_REGION}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest .
-          docker push ${GCP_REGION}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest
+          docker build --platform linux/amd64 -f docker/frontend/Dockerfile -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest .
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest
 
       - name: Deploy backend to Cloud Run
         run: |
           gcloud run deploy doubleit-backend \
-            --image ${GCP_REGION}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest \
+            --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --allow-unauthenticated
@@ -87,7 +87,8 @@ jobs:
       - name: Deploy frontend to Cloud Run
         run: |
           gcloud run deploy doubleit-frontend \
-            --image ${GCP_REGION}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest \
+            --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --allow-unauthenticated
+
