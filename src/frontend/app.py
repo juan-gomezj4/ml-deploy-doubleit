@@ -58,7 +58,8 @@ if st.button("🔮 Predicción"):
 
         # Llamada al backend
         response = requests.post(
-            "http://localhost:8000/predict",
+            # "http://localhost:8000/predict",
+            "http://backend:8000/predict",
             json={"values": values},  # Usa "values" si el backend espera este campo
             timeout=5,
         )

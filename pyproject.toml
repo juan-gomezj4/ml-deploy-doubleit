@@ -8,20 +8,25 @@ authors = [
 requires-python = ">=3.11"
 readme = "README.md"
 
-dependencies = [
-    "torch>=2.0.0",
-    "fastapi>=0.110.0",
-    "uvicorn[standard]>=0.29.0",
-    "streamlit>=1.33.0",
-    "pydantic>=2.6.0",
-    "loguru>=0.7.3",
-    "requests>=2.32.4",
-]
+dependencies = []
 
 [project.urls]
 repository = "https://github.com/juan-gomezj4/ml-deploy-doubleit"
 
 [dependency-groups]
+back = [
+    "torch>=2.0.0",
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "pydantic>=2.6.0",
+    "loguru>=0.7.3",
+    "requests>=2.32.4",
+]
+front = [
+    "streamlit>=1.33.0",
+    "loguru>=0.7.3",
+    "requests>=2.32.4",
+]
 dev = [
     "mypy>=1.16.0",
     "pre-commit>=4.2.0",

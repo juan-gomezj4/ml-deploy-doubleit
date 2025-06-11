@@ -1,0 +1,33 @@
+# Entornos virtuales
+.venv/
+venv/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.sqlite3
+*.pkl
+*.pt
+
+# Archivos del IDE
+.vscode/
+.idea/
+
+# Archivos de sistema y seguridad
+.env
+.env.*
+
+# Git y control de versiones
+.git
+.gitignore
+
+# Test y cobertura
+.coverage
+tests/
+
