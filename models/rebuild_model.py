@@ -7,12 +7,14 @@ from torch import Tensor
 
 class DoubleIt(torch.nn.Module):
     """
-    Modelo sencillo que multiplica cada valor de entrada por 2.
+    Reconstrucción del modelo DoubleIt según lógica definida para la prueba técnica.
+
+    Este modelo realiza una operación de inferencia sobre tensores de entrada.
     """
 
     def forward(self, x: Tensor) -> Tensor:
         """
-        Método de inferencia del modelo.
+        Ejecuta la inferencia del modelo reconstruido.
 
         Parámetros:
         ----------
@@ -22,22 +24,22 @@ class DoubleIt(torch.nn.Module):
         Retorna:
         -------
         Tensor
-            Tensor con cada valor multiplicado por 2.
+            Resultado de aplicar la lógica definida en el modelo.
         """
         return x * 2
 
 
 def export_model(output_path: Path) -> None:
     """
-    Traza y guarda el modelo en formato TorchScript en la ruta especificada.
+    Reconstruye y guarda el modelo DoubleIt en formato TorchScript.
 
     Parámetros:
     ----------
     output_path : Path
-        Ruta donde se guardará el modelo trazado.
+        Ruta de salida para el archivo .pt generado.
     """
     try:
-        logger.info("⚙️ Inicializando modelo...")
+        logger.info("⚙️ Reconstruyendo modelo DoubleIt...")
         model: DoubleIt = DoubleIt()
         example_input: Tensor = torch.tensor([1, 2, 3, 4])
         logger.info(f"📥 Ejemplo de entrada: {example_input}")
@@ -45,9 +47,9 @@ def export_model(output_path: Path) -> None:
         traced_model: torch.jit.ScriptModule = torch.jit.trace(model, example_input)
         traced_model.save(str(output_path))
 
-        logger.info(f"✅ Modelo exportado exitosamente a: {output_path}")
+        logger.info(f"✅ Modelo reconstruido y exportado a: {output_path}")
     except Exception as err:
-        logger.exception("❌ Error durante la exportación del modelo.")
+        logger.exception("❌ Error durante la reconstrucción del modelo.")
         raise RuntimeError("Error.") from err
 
 

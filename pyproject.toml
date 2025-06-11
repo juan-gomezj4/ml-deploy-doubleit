@@ -28,6 +28,7 @@ front = [
     "requests>=2.32.4",
 ]
 dev = [
+    "httpx>=0.28.1",
     "mypy>=1.16.0",
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
