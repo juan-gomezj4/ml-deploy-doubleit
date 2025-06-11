@@ -44,7 +44,7 @@ jobs:
         uses: codecov/codecov-action@v5
 
   build-and-deploy:
-    name: Build & Deploy to Cloud Run
+    name: Build & Deploy to Cloud Run (dev)
     runs-on: ubuntu-latest
     needs: [test]
     steps:
@@ -68,18 +68,18 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build --platform linux/amd64 -f docker/backend/Dockerfile -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest .
-          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest
+          docker build --platform linux/amd64 -f docker/backend/Dockerfile -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend-dev:latest .
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend-dev:latest
 
       - name: Build and push frontend image
         run: |
-          docker build --platform linux/amd64 -f docker/frontend/Dockerfile -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest .
-          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest
+          docker build --platform linux/amd64 -f docker/frontend/Dockerfile -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend-dev:latest .
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend-dev:latest
 
       - name: Deploy backend to Cloud Run
         run: |
-          gcloud run deploy doubleit-backend \
-            --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend:latest \
+          gcloud run deploy doubleit-backend-dev \
+            --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-backend-dev:latest \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --memory=1Gi \
@@ -87,11 +87,10 @@ jobs:
 
       - name: Deploy frontend to Cloud Run
         run: |
-          gcloud run deploy doubleit-frontend \
-            --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend:latest \
+          gcloud run deploy doubleit-frontend-dev \
+            --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-deploy-repo/doubleit-frontend-dev:latest \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --memory=1Gi \
             --allow-unauthenticated \
-            --set-env-vars BACKEND_URL=https://doubleit-backend-137961191542.us-central1.run.app/predict
-
+            --set-env-vars BACKEND_URL=https://doubleit-backend-dev-137961191542.${{ secrets.GCP_REGION }}.run.app/predict

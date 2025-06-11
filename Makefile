@@ -1,4 +1,5 @@
-.PHONY: help install_env test test_verbose test_coverage pre-commit_update clean_env check lint
+.PHONY: help install_env test test_verbose test_coverage pre-commit_update clean_env check lint \
+        terraform_init terraform_apply create_key set_gh_secret clean_key
 
 ####---- Entorno ----####
 
@@ -36,6 +37,24 @@ lint: ## Ejecuta sólo Ruff (linting)
 pre-commit_update: ## Actualiza los hooks de pre-commit
 	uv run pre-commit clean
 	uv run pre-commit autoupdate
+
+####---- Terraform Infraestructura ----####
+
+terraform_init: ## Inicializa Terraform en la carpeta iac
+	cd iac && terraform init
+
+terraform_apply: ## Aplica Terraform (crea recursos en GCP)
+	cd iac && terraform apply -auto-approve
+
+create_key: ## Crea clave JSON para cuenta de servicio
+	gcloud iam service-accounts keys create github-creds.json \
+		--iam-account=$$SA_NAME@$$PROJECT_ID.iam.gserviceaccount.com
+
+set_gh_secret: ## Sube clave como secreto a GitHub
+	gh secret set GCP_CREDENTIALS < github-creds.json
+
+clean_key: ## Borra clave local
+	rm -f github-creds.json
 
 ####---- Ayuda ----####
 
