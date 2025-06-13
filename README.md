@@ -40,7 +40,6 @@ La siguiente estructura organiza el proyecto en módulos funcionales y component
 ├── Makefile                                        # Comandos utilitarios para test, lint, terraform
 │
 ├── models/                                         # Carpeta con modelo TorchScript
-│ ├── doubleit_model/                               # Representación detallada del modelo
 │ ├── doubleit_model.pt                             # Modelo TorchScript serializado
 │ ├── inference_example.py                          # Script para pruebas manuales del modelo
 │ └── rebuild_model.py                              # Reconstrucción del modelo desde PyTorch
