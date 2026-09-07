@@ -3,7 +3,7 @@
 repos:
   # Reglas generales de seguridad y limpieza
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml                       # Valida sintaxis YAML
       - id: check-case-conflict             # Detecta conflictos de mayúsculas/minúsculas en archivos
@@ -22,7 +22,7 @@ repos:
 
   # Linter y formateador con Ruff
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.0
+    rev: v0.16.6
     hooks:
       - id: ruff
         args:
@@ -34,7 +34,7 @@ repos:
 
   # Verificación de tipos con MyPy
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.16.1
+    rev: v2.3.1
     hooks:
       - id: mypy
         args:
